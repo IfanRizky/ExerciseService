@@ -38,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     //controller
     private MusicController controller;
 
+    //activity and playback pause flags
+    private boolean paused = false, playbackPaused = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,5 +167,25 @@ public class MainActivity extends AppCompatActivity {
             }
             while (musicCursor.moveToNext());
         }
+    }
+
+    //play next
+    private void playNext(){
+        musicSrv.playNext();
+        if (playbackPaused) {
+            setController();
+            playbackPaused = false;
+        }
+        controller.show(0);
+    }
+
+    //play previous
+    private void playPrev(){
+        musicSrv.playPrev();
+        if(playbackPaused){
+            setController();
+            playbackPaused=false;
+        }
+        controller.show(0);
     }
 }
