@@ -24,12 +24,19 @@ import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
 
+    //song list variables
     private ArrayList<Song> songList;
     private ListView songView;
 
+    //service
     private MusicService musicSrv;
     private Intent playIntent;
+
+    //binding
     private boolean musicBound = false;
+
+    //controller
+    private MusicController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +50,33 @@ public class MainActivity extends AppCompatActivity {
         SongAdapter songAdt = new SongAdapter(this, songList);
         songView.setAdapter(songAdt);
 
+        setController();
+
         Collections.sort(songList, new Comparator<Song>() {
             @Override
             public int compare(Song a, Song b) {
                 return a.getTitle().compareTo(b.getTitle());
+            }
+        });
+    }
+
+    private void setController(){
+        //set the controller up
+        controller = new MusicController(this);
+
+        controller.setMediaPlayer(this);
+        controller.setAnchorView(findViewById(R.id.song_list));
+        controller.setEnabled(true);
+
+        controller.setPrevNextListeners(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playNext();
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playPrev();
             }
         });
     }
