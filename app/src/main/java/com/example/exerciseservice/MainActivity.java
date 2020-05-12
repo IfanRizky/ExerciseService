@@ -250,4 +250,25 @@ public class MainActivity extends AppCompatActivity {
     public void start() {
         musicSrv.go();
     }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        paused = true;
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(paused){
+            setController();
+            paused = false;
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        controller.hide();
+        super.onStop();
+    }
 }
