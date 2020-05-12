@@ -10,6 +10,8 @@ import android.provider.MediaStore;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +26,13 @@ public class MainActivity extends AppCompatActivity {
         songView = (ListView) findViewById(R.id.song_list);
         songList = new ArrayList<Song>();
         getSongList();
+
+        Collections.sort(songList, new Comparator<Song>() {
+            @Override
+            public int compare(Song a, Song b) {
+                return a.getTitle().compareTo(b.getTitle());
+            }
+        });
     }
 
     public void getSongList() {
