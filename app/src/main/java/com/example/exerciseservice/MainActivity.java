@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.exerciseservice.MusicService.MusicBinder;
 
+import android.view.Menu;
 import android.widget.MediaController.MediaPlayerControl;
 
 import android.content.ComponentName;
@@ -94,6 +95,12 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
             playbackPaused=false;
         }
         controller.show(0);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
     @Override
