@@ -27,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
         songList = new ArrayList<Song>();
         getSongList();
 
+        SongAdapter songAdt = new SongAdapter(this, songList);
+        songView.setAdapter(songAdt);
+
         Collections.sort(songList, new Comparator<Song>() {
             @Override
             public int compare(Song a, Song b) {
