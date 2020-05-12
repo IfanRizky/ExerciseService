@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.exerciseservice.MusicService.MusicBinder;
 
+import android.widget.MediaController.MediaPlayerControl;
+
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -22,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MediaPlayerControl {
 
     //song list variables
     private ArrayList<Song> songList;
@@ -99,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         //menu item selected
         switch (item.getItemId()) {
             case R.id.action_shuffle:
+                musicSrv.setShuffle();
                 //shuffle
                 break;
             case R.id.action_end:
