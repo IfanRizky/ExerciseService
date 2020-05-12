@@ -6,6 +6,7 @@ import com.example.exerciseservice.MusicService.MusicBinder;
 
 import android.content.ComponentName;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.Cursor;
@@ -67,6 +68,16 @@ public class MainActivity extends AppCompatActivity {
             musicBound = false;
         }
     };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (playIntent == null) {
+            playIntent = new Intent(this, MusicService.class);
+            bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
+            startService(playIntent);
+        }
+    }
 
     public void getSongList() {
         ContentResolver musicResolver = getContentResolver();

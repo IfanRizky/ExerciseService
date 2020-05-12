@@ -15,6 +15,8 @@ public class MusicService extends Service implements
     MediaPlayer.OnErrorListener,
     MediaPlayer.OnCompletionListener {
 
+    private final IBinder musicBind = new MusicBinder();
+
     //media player
     private MediaPlayer player;
 
@@ -28,6 +30,13 @@ public class MusicService extends Service implements
     public IBinder onBind(Intent intent) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent){
+        player.stop();
+        player.release();
+        return false;
     }
 
     public void onCreate() {
