@@ -1,5 +1,7 @@
 package com.example.exerciseservice;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ContentUris;
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MusicService extends Service implements
     MediaPlayer.OnPreparedListener,
@@ -20,6 +23,11 @@ public class MusicService extends Service implements
     MediaPlayer.OnCompletionListener {
 
     private final IBinder musicBind = new MusicBinder();
+    private static final int NOTIFY_ID = 1;
+
+    private String songTitle = null;
+    private boolean shuffle = false;
+    private Random rand;
 
     //media player
     private MediaPlayer player;
@@ -115,6 +123,24 @@ public class MusicService extends Service implements
     public void onPrepared(MediaPlayer mp) {
         //start playback
         mp.start();
+        player.start();
+
+        Intent notIntent = new Intent(this, MainActivity.class);
+        notIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendInt = PendingIntent.getActivity(this, 0,
+                notIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification.Builder builder = new Notification.Builder(this);
+
+        builder.setContentIntent(pendInt)
+                .setSmallIcon(R.drawable.ic_play_arrow_black_24dp)
+                .setTicker(songTitle)
+                .setOngoing(true)
+                .setContentTitle("Playing")
+                .setContentText(songTitle);
+        Notification not = builder.build();
+
+        startForeground(NOTIFY_ID, not);
     }
 
     public void setSong(int songIndex){
