@@ -1,7 +1,5 @@
 package com.example.exerciseservice;
 
-import android.app.Notification;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ContentUris;
 import android.content.Intent;
@@ -14,8 +12,11 @@ import android.os.PowerManager;
 import android.provider.MediaStore;
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.Random;
+import android.app.Notification;
+import android.app.PendingIntent;
+
+import java.util.ArrayList;
 
 public class MusicService extends Service implements
     MediaPlayer.OnPreparedListener,
@@ -86,6 +87,8 @@ public class MusicService extends Service implements
         player = new MediaPlayer();
 
         initMusicPlayer();
+
+        rand = new Random();
     }
 
     public void initMusicPlayer(){
@@ -116,7 +119,6 @@ public class MusicService extends Service implements
             mp.reset();
             playNext();
         }
-
     }
 
     @Override

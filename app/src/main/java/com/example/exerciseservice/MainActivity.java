@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
                 musicSrv.setShuffle();
                 //shuffle
                 break;
+
             case R.id.action_end:
                 stopService(playIntent);
                 musicSrv = null;
@@ -199,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements MediaPlayerContro
         musicSrv.playPrev();
         if(playbackPaused){
             setController();
-            playbackPaused=false;
+            playbackPaused = false;
         }
         controller.show(0);
     }
