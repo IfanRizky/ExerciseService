@@ -2,11 +2,16 @@ package com.example.exerciseservice;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.exerciseservice.MusicService.MusicBinder;
+
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.provider.MediaStore;
 import android.widget.ListView;
 
@@ -42,6 +47,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    //connect to the service
+    private ServiceConnection musicConnection = new ServiceConnection(){
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            MusicBinder binder = (MusicBinder)service;
+            //get service
+            musicSrv = binder.getService();
+
+            //pass list
+            musicSrv.setList(songList);
+            musicBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            musicBound = false;
+        }
+    };
 
     public void getSongList() {
         ContentResolver musicResolver = getContentResolver();
