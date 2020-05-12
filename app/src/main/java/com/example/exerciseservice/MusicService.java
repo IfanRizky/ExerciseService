@@ -33,7 +33,7 @@ public class MusicService extends Service implements
     @Override
     public IBinder onBind(Intent intent) {
         // TODO Auto-generated method stub
-        return null;
+        return musicBind;
     }
 
     @Override
